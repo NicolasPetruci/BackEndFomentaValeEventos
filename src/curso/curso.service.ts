@@ -4,6 +4,7 @@ import { UpdateCursoDto } from './dto/update-curso.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Curso } from './entities/curso.entity';
+import { Controller, Get, Post, Patch, Param, Delete } from '@nestjs/common/decorators';
 
 
 
@@ -14,11 +15,11 @@ export class CursoService {
     private cursoRepository: Repository<Curso>,
   ){}
   
-  
   async create(@Body() createCursoDto: CreateCursoDto) {
-    return await 'This action adds a new curso';
+    return await this.cursoRepository.save(createCursoDto);
   }
 
+  
   async findAll(): Promise <Curso[]> {
     return await this.cursoRepository.find();
   }
@@ -32,7 +33,8 @@ export class CursoService {
   }
 
   async update(id: number, updateCursoDto: UpdateCursoDto) {
-    return await this.cursoRepository.update(id, updateCursoDto);
+    await this.cursoRepository.update(id, updateCursoDto);
+    return `Curso ${id} Atualizado`;
   }
 
   async remove(id: number): Promise<string> {
