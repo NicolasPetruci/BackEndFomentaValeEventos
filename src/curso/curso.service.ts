@@ -23,7 +23,7 @@ export class CursoService {
     return await this.cursoRepository.find();
   }
 
-  async indOne(id: number) {
+  async findOne(id: number) {
     return await this.cursoRepository.findOne({
       where: {
         idCurso: id,
