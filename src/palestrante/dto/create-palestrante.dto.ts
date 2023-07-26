@@ -1,5 +1,8 @@
 export class CreatePalestranteDto {
     idPalestrante: number;
     nomePalestrante: string;
-    telefone
+    telefonePalestrante: string;
+    emailPalestrante: string;
+    redes: string[];
+
 }

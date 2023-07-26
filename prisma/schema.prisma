@@ -6,19 +6,33 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 
 model Curso{
 idCurso             Int @id @default(autoincrement())
-nomeDoCurso         String
-dataDeAcontecimento String
-tempoDeInicio       String
-tempoDeFinalizacao  String
-nomeDoPalestrante   String
-descricaoDoCurso    String
-observacao          String
+nomeCurso           String
+dataCurso           String
+tempoInicio         DateTime @updatedAt
+tempoFinalizacao    DateTime @updatedAt
+palestrante         String?
+descricaoCurso      String
+observacao          String?
+arrecadacao         String?
 }
 
+enum tipoEvento {
+FORMACAO
+CURSO
+HACKATHON
+
+}
+
+model Palestrante{
+  idPalestrante           Int @id @default(autoincrement())
+  nomePalestrante         String
+  telefonePalestrante     String
+  emailPalestrante        String
+}
