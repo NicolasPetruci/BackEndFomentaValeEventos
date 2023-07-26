@@ -1,13 +1,15 @@
 export class CreateCursoDto {
     
     idCurso: number;
-    nomeDoCurso: string;
-    dataDeAcontecimento: string;
-    tempoDeInicio: string;
-    tempoDeFinalizacao: string;
-    nomeDoPalestrante: string;
-    descricaoDoCurso: string;
-    observacao: string;
+    categoriaEvento: Enumerator;
+    nomeCurso: string;
+    dataCurso: string;
+    tempoInicio: string | Date;
+    tempoFinalizacao: string | Date;
+    palestrante?: string;
+    descricaoCurso: string;
+    observacao?: string;
+    arrecadacao?: string;
     
 
 }
