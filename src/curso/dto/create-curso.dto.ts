@@ -7,6 +7,7 @@ export class CreateCursoDto {
     tempoInicio: string | Date;
     tempoFinalizacao: string | Date;
     palestrante?: string;
+    participantes: number;
     descricaoCurso: string;
     observacao?: string;
     arrecadacao?: string;

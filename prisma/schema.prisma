@@ -18,6 +18,7 @@ dataCurso           String
 tempoInicio         DateTime @updatedAt
 tempoFinalizacao    DateTime @updatedAt
 palestrante         String?
+participante        Int
 descricaoCurso      String
 observacao          String?
 arrecadacao         String?
