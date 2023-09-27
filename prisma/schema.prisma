@@ -17,14 +17,16 @@ nomeCurso           String
 dataCurso           String
 tempoInicio         DateTime @updatedAt
 tempoFinalizacao    DateTime @updatedAt
-palestrante         String?
+palestrante         Palestrante @relation(fields: [palestranteId], references: [idPalestrante])
+palestranteId       Int
 participante        Int
+tipoEvento          TipoEvento
 descricaoCurso      String
 observacao          String?
-arrecadacao         String?
+arrecadacao         Float?
 }
 
-enum tipoEvento {
+enum TipoEvento {
 FORMACAO
 CURSO
 HACKATHON
@@ -33,6 +35,7 @@ HACKATHON
 
 model Palestrante{
   idPalestrante           Int @id @default(autoincrement())
+  eventos Curso[]
   nomePalestrante         String
   telefonePalestrante     String
   emailPalestrante        String

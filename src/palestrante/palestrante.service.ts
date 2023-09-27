@@ -1,26 +1,44 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Body } from '@nestjs/common';
 import { CreatePalestranteDto } from './dto/create-palestrante.dto';
 import { UpdatePalestranteDto } from './dto/update-palestrante.dto';
+import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
 export class PalestranteService {
-  create(createPalestranteDto: CreatePalestranteDto) {
-    return 'This action adds a new palestrante';
+  constructor(private readonly prisma: PrismaService) {}
+
+  async create(@Body() data: CreatePalestranteDto) {
+    return await this.prisma.palestrante.create({
+      data: {
+        ...data,
+      },
+    });
   }
 
-  findAll() {
-    return `This action returns all palestrante`;
+  async findAll() {
+    return await this.prisma.palestrante.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} palestrante`;
+  async findOne(id: number) {
+    return await this.prisma.palestrante.findUnique({
+      where: {
+        idPalestrante: id,
+      },
+    });
   }
 
-  update(id: number, updatePalestranteDto: UpdatePalestranteDto) {
-    return `This action updates a #${id} palestrante`;
+  async update(id: number, data: UpdatePalestranteDto) {
+    await this.prisma.palestrante.update({
+      where: { idPalestrante: id },
+      data,
+    });
+    return `Palestrante ${id} Atualizado`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} palestrante`;
+  async remove(id: number): Promise<string> {
+    await this.prisma.palestrante.delete({
+      where: { idPalestrante: id },
+    });
+    return `Palestrante ${id} deletado`;
   }
 }
