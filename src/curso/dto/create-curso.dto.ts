@@ -6,7 +6,8 @@ export class CreateCursoDto {
   tempoInicio?: Date | string;
   tempoFinalizacao?: Date | string;
   palestrante: Palestrante[];
-  tipoEvento?: TipoEvento;
+  participante: number;
+  tipoEvento: TipoEvento;
   descricaoCurso: string;
   observacao?: string | null;
   arrecadacao?: number | null;

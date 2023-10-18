@@ -8,9 +8,22 @@ export class CursoService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(@Body() data: CreateCursoDto) {
+    const { palestrante, ...rest } = data;
+
+    const listaPalestranteNumeros = palestrante.map((palestrante) => {
+      return palestrante.idPalestrante;
+    });
+
+    console.log(data, listaPalestranteNumeros);
+
     return await this.prisma.curso.create({
       data: {
-        ...data,
+        ...rest,
+        palestrante: {
+          connect: listaPalestranteNumeros.map((palestranteNumero) => ({
+            idPalestrante: palestranteNumero,
+          })),
+        },
       },
     });
   }
@@ -27,13 +40,13 @@ export class CursoService {
     });
   }
 
-  async update(id: number, data: UpdateCursoDto) {
-    await this.prisma.curso.update({
-      where: { idCurso: id },
-      data,
-    });
-    return `Curso ${id} Atualizado`;
-  }
+  // async update(id: number, data: UpdateCursoDto) {
+  //   await this.prisma.curso.update({
+  //     where: { idCurso: id },
+  //     data,
+  //   });
+  //   return `Curso ${id} Atualizado`;
+  // }
 
   async remove(id: number): Promise<string> {
     await this.prisma.curso.delete({

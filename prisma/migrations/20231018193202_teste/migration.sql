@@ -1,0 +1,5 @@
+-- AlterTable
+ALTER TABLE "Curso" ALTER COLUMN "dataCurso" DROP NOT NULL,
+ALTER COLUMN "tempoInicio" DROP NOT NULL,
+ALTER COLUMN "tempoFinalizacao" DROP NOT NULL,
+ALTER COLUMN "tipoEvento" DROP NOT NULL;
