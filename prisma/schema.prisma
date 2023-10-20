@@ -15,8 +15,8 @@ model Curso{
 idCurso             Int @id @default(autoincrement())
 nomeCurso           String
 dataCurso           String?
-tempoInicio         DateTime? @updatedAt
-tempoFinalizacao    DateTime? @updatedAt
+tempoInicio         DateTime @updatedAt
+tempoFinalizacao    DateTime @updatedAt
 palestrante         Palestrante[] @relation("PalestranteEvento")
 participante        Int
 tipoEvento          TipoEvento?

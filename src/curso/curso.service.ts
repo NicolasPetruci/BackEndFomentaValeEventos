@@ -7,7 +7,7 @@ import { PrismaService } from 'src/prisma.service';
 export class CursoService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(@Body() data: CreateCursoDto) {
+  async create(data: CreateCursoDto) {
     const { palestrante, ...rest } = data;
 
     const listaPalestranteNumeros = palestrante.map((palestrante) => {
@@ -29,26 +29,44 @@ export class CursoService {
   }
 
   async findAll() {
-    return await this.prisma.curso.findMany();
+    return await this.prisma.curso.findMany({
+      include: {
+        palestrante: true,
+      },
+    });
   }
 
   async findOne(id: number) {
     return await this.prisma.curso.findUnique({
+      include: {
+        palestrante: true,
+      },
       where: {
         idCurso: id,
       },
     });
   }
 
-  // async update(id: number, data: UpdateCursoDto) {
-  //   await this.prisma.curso.update({
-  //     where: { idCurso: id },
-  //     data,
-  //   });
-  //   return `Curso ${id} Atualizado`;
-  // }
+  async update(id: number, data: UpdateCursoDto) {
+    const { palestrante, ...rest } = data;
+    const listaPalestranteNumeros = palestrante.map((palestrante) => {
+      return palestrante.idPalestrante;
+    });
 
-  async remove(id: number): Promise<string> {
+    return await this.prisma.curso.update({
+      where: { idCurso: id },
+      data: {
+        ...rest,
+        palestrante: {
+          set: listaPalestranteNumeros.map((palestranteNumero) => ({
+            idPalestrante: palestranteNumero,
+          })),
+        },
+      },
+    });
+  }
+
+  async remove(id: number) {
     await this.prisma.curso.delete({
       where: { idCurso: id },
     });
