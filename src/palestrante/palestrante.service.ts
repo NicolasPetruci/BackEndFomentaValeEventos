@@ -28,11 +28,10 @@ export class PalestranteService {
   }
 
   async update(id: number, data: UpdatePalestranteDto) {
-    await this.prisma.palestrante.update({
+    return await this.prisma.palestrante.update({
       where: { idPalestrante: id },
       data,
     });
-    return `Palestrante ${id} Atualizado`;
   }
 
   async remove(id: number): Promise<string> {

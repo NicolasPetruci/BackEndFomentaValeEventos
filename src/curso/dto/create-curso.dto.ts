@@ -13,3 +13,4 @@ export class CreateCursoDto {
   arrecadacao?: number | null;
   palestrante?: Palestrante[];
 }
+
